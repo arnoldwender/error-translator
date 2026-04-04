@@ -1,0 +1,26 @@
+# Error Translator
+
+> Translates cryptic error messages into emotional human language with 5 personas.
+
+## Tech Stack
+- React 18, TypeScript, Vite, Tailwind CSS
+- Framer Motion, canvas-confetti, html2canvas, Web Audio API, Lucide React
+
+## Key Files
+- src/App.tsx — Main application component
+- src/components/ — UI components (persona selector, emotion meter, etc.)
+- src/data/ — Error database (48 errors across 6 languages), persona definitions
+- src/hooks/ — Custom React hooks
+- src/utils/ — Utility functions
+
+## Features
+- 5 translator personas (Therapist, Drama Queen, Gen-Z, Shakespearean, Corporate)
+- Emotion meter visualization
+- Error Hall of Fame
+- 48 errors across JavaScript, Python, Java, C++, Rust, Go
+- Animated persona switching
+- Shareable translation cards
+
+## URLs
+- Live: https://error-translator.netlify.app
+- Repo: https://github.com/arnoldwender/error-translator
