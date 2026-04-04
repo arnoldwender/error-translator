@@ -1,0 +1,56 @@
+# Error Translator
+
+> Because Errors Have Feelings Too
+
+## Overview
+
+Error Translator is a client-side React web application that humorously translates programming error messages into empathetic, human-readable descriptions with therapeutic advice. It features a retro-futuristic neon CRT aesthetic.
+
+## Tech Stack
+
+- React 18 with TypeScript (strict mode)
+- Vite 5 (bundler and dev server)
+- Tailwind CSS 3 (styling with CSS custom properties)
+- Lucide React (icons)
+- ESLint 9 (linting)
+
+## Architecture
+
+The app is entirely client-side with no backend. Error translations come from a hardcoded database of 18 entries in `src/data/errors.ts`.
+
+### Core Flow
+
+User input → substring matching against error database → simulated processing animation → display result (emoji + human translation + therapy advice)
+
+### Key Files
+
+- `src/App.tsx` — Root component
+- `src/hooks/useTranslation.ts` — State machine: idle → translating → done
+- `src/data/errors.ts` — Error database, suggestion list, processing log messages
+- `src/components/` — UI components (ErrorInput, Header, ResultCard, TranslationLogs, IdleState, ScanlineOverlay, Footer)
+- `src/index.css` — Tailwind directives, CSS variables (neon theme), keyframe animations
+
+### Error Matching
+
+Case-insensitive substring search. Unmatched errors receive a random translation from the database.
+
+## Commands
+
+- `npm run dev` — Start dev server (port 5173)
+- `npm run build` — Production build
+- `npm run lint` — Run ESLint
+- `npm run typecheck` — TypeScript type checking
+- `npm run preview` — Preview production build
+
+## Design
+
+- Color scheme: Neon pink (#ff0066) on black
+- Font: JetBrains Mono (monospace)
+- Effects: CRT scanlines, glitching title text, pulsing glow animations
+- Responsive typography using CSS clamp()
+
+## Repository
+
+- Repo: arnoldwender/error-translator
+- No backend or external API dependencies
+- Supabase JS is installed but unused (placeholder for potential future use)
