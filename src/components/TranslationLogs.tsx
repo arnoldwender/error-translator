@@ -1,4 +1,9 @@
+import { motion } from 'framer-motion';
 import type { Phase } from '../hooks/useTranslation';
+
+/* ------------------------------------------------------------------ */
+/* Staggered log reveals during the translation animation phase        */
+/* ------------------------------------------------------------------ */
 
 interface TranslationLogsProps {
   logs: string[];
@@ -13,17 +18,18 @@ export function TranslationLogs({ logs, phase }: TranslationLogsProps) {
       {logs.map((log, i) => {
         const isComplete = log === 'Translation complete.';
         return (
-          <div
+          <motion.div
             key={i}
-            className="animate-fade-in"
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.05, duration: 0.3 }}
             style={{
               color: isComplete ? 'var(--neon)' : 'var(--neon-dim)',
               textShadow: '0 0 4px currentColor',
-              animationDelay: `${i * 50}ms`,
             }}
           >
             {isComplete ? '✓ ' : '> '}{log}
-          </div>
+          </motion.div>
         );
       })}
       {phase === 'translating' && (
