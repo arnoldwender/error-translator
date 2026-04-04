@@ -10,7 +10,12 @@ import { PersonaSelector } from './components/PersonaSelector';
 import { ErrorInput } from './components/ErrorInput';
 import { TranslationLogs } from './components/TranslationLogs';
 import { ResultCard } from './components/ResultCard';
+import { SentryDashboard } from './components/SentryDashboard';
+import { JiraTicket } from './components/JiraTicket';
+import { EmotionalTimeline } from './components/EmotionalTimeline';
+import { CliMode } from './components/CliMode';
 import { IdleState } from './components/IdleState';
+import { ChangelogProTier } from './components/ChangelogProTier';
 import { HallOfFame } from './components/HallOfFame';
 import { AchievementBadges } from './components/AchievementBadges';
 import { AchievementToast } from './components/AchievementToast';
@@ -18,10 +23,13 @@ import { Footer } from './components/Footer';
 
 /* ------------------------------------------------------------------ */
 /* Main app — orchestrates translation, sound, confetti, achievements  */
+/* Now includes Sentry dashboard, Jira tickets, emotional timeline,   */
+/* CLI mode, changelog, and pro tier                                   */
 /* ------------------------------------------------------------------ */
 
 export default function App() {
   const [input, setInput] = useState('');
+  const [cliMode, setCliMode] = useState(false);
   const { phase, result, logs, count, persona, setPersona, translate, reset } = useTranslation();
   const { achievements, unlocked, newAchievement, dismissAchievement, checkAchievements, unlock } = useAchievements();
   const { play, toggle } = useSoundEffects();
@@ -80,6 +88,10 @@ export default function App() {
     unlock('sharer');
   }, [unlock]);
 
+  const handleCliToggle = useCallback(() => {
+    setCliMode((prev) => !prev);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-[--neon] font-[inherit] overflow-hidden relative">
       <ScanlineOverlay />
@@ -90,38 +102,78 @@ export default function App() {
       <div className="max-w-[700px] mx-auto px-6 py-8 relative z-10">
         <Header translationCount={count} onSoundToggle={toggle} />
 
-        {/* Persona selector */}
-        <PersonaSelector persona={persona} onChange={setPersona} />
-
-        <ErrorInput
-          input={input}
-          onInputChange={setInput}
-          phase={phase}
-          onTranslate={handleTranslate}
+        {/* CLI Mode toggle + terminal */}
+        <CliMode
+          isActive={cliMode}
+          onToggle={handleCliToggle}
+          persona={persona}
+          onPersonaChange={setPersona}
         />
 
-        <TranslationLogs logs={logs} phase={phase} />
+        {/* Standard GUI mode — hidden when CLI is active */}
+        {!cliMode && (
+          <>
+            {/* Persona selector */}
+            <PersonaSelector persona={persona} onChange={setPersona} />
 
-        <AnimatePresence mode="wait">
-          {result && phase === 'done' && (
-            <ResultCard
-              key={result.code + persona}
-              result={result}
-              persona={persona}
-              onReset={handleReset}
-              onRetranslate={handleTranslate}
-              onShare={handleShare}
+            <ErrorInput
+              input={input}
+              onInputChange={setInput}
+              phase={phase}
+              onTranslate={handleTranslate}
             />
-          )}
-        </AnimatePresence>
 
-        {phase === 'idle' && <IdleState />}
+            <TranslationLogs logs={logs} phase={phase} />
 
-        {/* Hall of Fame */}
-        <HallOfFame />
+            <AnimatePresence mode="wait">
+              {result && phase === 'done' && (
+                <>
+                  {/* Sentry-style issue dashboard */}
+                  <SentryDashboard
+                    key={`sentry-${result.code}-${persona}`}
+                    result={result}
+                    persona={persona}
+                  />
 
-        {/* Achievements */}
-        <AchievementBadges achievements={achievements} unlocked={unlocked} />
+                  {/* Original translation result card */}
+                  <ResultCard
+                    key={result.code + persona}
+                    result={result}
+                    persona={persona}
+                    onReset={handleReset}
+                    onRetranslate={handleTranslate}
+                    onShare={handleShare}
+                  />
+
+                  {/* Jira ticket generator */}
+                  <JiraTicket
+                    key={`jira-${result.code}-${persona}`}
+                    result={result}
+                    persona={persona}
+                  />
+
+                  {/* Developer emotional state timeline */}
+                  <EmotionalTimeline
+                    key={`timeline-${result.code}-${persona}`}
+                    result={result}
+                    translationCount={count}
+                  />
+                </>
+              )}
+            </AnimatePresence>
+
+            {phase === 'idle' && <IdleState />}
+
+            {/* Changelog + Pro Tier */}
+            <ChangelogProTier />
+
+            {/* Hall of Fame */}
+            <HallOfFame />
+
+            {/* Achievements */}
+            <AchievementBadges achievements={achievements} unlocked={unlocked} />
+          </>
+        )}
 
         <Footer />
       </div>
