@@ -60,6 +60,10 @@ npm run build
 
 **[https://error-translator.netlify.app](https://error-translator.netlify.app)**
 
+## Contributing
+
+Know an error message that needs emotional translation? Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to get involved.
+
 ## License
 
-MIT
+This project is licensed under the MIT License — see the [LICENSE](./LICENSE) file for details.
