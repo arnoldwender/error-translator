@@ -18,7 +18,7 @@ export function Header({ translationCount, onSoundToggle }: HeaderProps) {
     <header className="text-center mb-8 border-b border-[--neon-border] pb-6">
       <div className="flex justify-between items-start mb-2">
         <div className="text-[0.65rem] tracking-[6px] text-[--neon-ghost] uppercase flex-1">
-          Wender Media Emotional Debug Suite
+          Arnold Wender Emotional Debug Suite
         </div>
         <SoundToggle onToggle={onSoundToggle} />
       </div>
