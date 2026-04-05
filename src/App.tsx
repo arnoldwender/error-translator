@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useTranslation } from './hooks/useTranslation';
 import { useAchievements } from './hooks/useAchievements';
@@ -125,9 +125,13 @@ export default function App() {
 
             <TranslationLogs logs={logs} phase={phase} />
 
-            <AnimatePresence mode="wait">
-              {result && phase === 'done' && (
-                <>
+            {/* Results — no AnimatePresence to prevent black screen on phase transitions */}
+            {result && phase === 'done' && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {/* Sentry-style issue dashboard */}
                   <SentryDashboard
                     key={`sentry-${result.code}-${persona}`}
@@ -158,9 +162,8 @@ export default function App() {
                     result={result}
                     translationCount={count}
                   />
-                </>
+                </motion.div>
               )}
-            </AnimatePresence>
 
             {phase === 'idle' && <IdleState />}
 
