@@ -24,6 +24,12 @@ We've all stared at `Segmentation fault (core dumped)` and felt nothing but conf
 - **48 Errors Across 6 Languages** — JavaScript, Python, Java, C++, Rust, Go
 - **Animated Translations** — Smooth persona-switching with Framer Motion
 - **Shareable Results** — Generate and share your favorite translations
+- **Sentry-Style Error Dashboard** — A fake Sentry dashboard tracking your emotional error rate
+- **Jira Ticket Generator** — Auto-generate absurd Jira tickets from translated errors
+- **Emotional State Timeline** — Grafana-style chart tracking your emotional journey through debugging
+- **CLI Mode** — A terminal-based interface for translating errors like a real developer
+- **Fake Changelog** — Version history of the translator's emotional growth
+- **Pro Tier** — Premium upgrade for even more dramatic translations
 
 ## Tech Stack
 

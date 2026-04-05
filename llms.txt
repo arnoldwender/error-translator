@@ -9,6 +9,11 @@
 ## Key Files
 - src/App.tsx — Main application component
 - src/components/ — UI components (persona selector, emotion meter, etc.)
+- src/components/SentryDashboard.tsx — Sentry-style error dashboard
+- src/components/JiraTicket.tsx — Jira ticket generator
+- src/components/EmotionalTimeline.tsx — Grafana-style emotional state timeline
+- src/components/CliMode.tsx — CLI mode interface
+- src/components/ChangelogProTier.tsx — Changelog and Pro Tier
 - src/data/ — Error database (48 errors across 6 languages), persona definitions
 - src/hooks/ — Custom React hooks
 - src/utils/ — Utility functions
@@ -20,6 +25,12 @@
 - 48 errors across JavaScript, Python, Java, C++, Rust, Go
 - Animated persona switching
 - Shareable translation cards
+- Sentry-style Error Dashboard
+- Jira Ticket Generator
+- Emotional State Timeline (Grafana-style)
+- CLI Mode
+- Fake Changelog
+- Pro Tier
 
 ## URLs
 - Live: https://error-translator.netlify.app
