@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import type { Persona } from '../data/errors';
 
 /* ------------------------------------------------------------------ */
@@ -38,10 +38,13 @@ function saveState(state: ReturnType<typeof loadState>) {
 
 export function useAchievements() {
   const [state, setState] = useState(loadState);
+  const loadedState = useRef(state);
   const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
 
-  /* Save to localStorage whenever state changes */
+  /* Save to localStorage only after the user changed something: writing the untouched
+     initial state on page load is storage without user action (§ 25 Abs. 1 TDDDG) */
   useEffect(() => {
+    if (state === loadedState.current) return;
     saveState(state);
   }, [state]);
 
